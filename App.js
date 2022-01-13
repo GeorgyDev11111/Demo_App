@@ -5,12 +5,8 @@ import { Navbar } from './src/Navbar';
 import { Todo } from './src/Todo';
 import { GlobalCount } from './src/AddToDo';
 
-
-
 export default App = () => {
-  
-  const [todos,setTodos] = useState([]); // create Hook добавления данных
-
+  const [todos,setTodos] = useState([]);
   // функция которая принимает параметр у TextImput добавляет к ней id и возвращат новый элемент ToDo
   const addTodo = title => {
     setTodos(prev => [
@@ -21,7 +17,7 @@ export default App = () => {
       }
   ])
   }
- 
+
   const removeTodo = id => {
     Alert.alert(
       'Действительно Удалить?!',
@@ -35,22 +31,35 @@ export default App = () => {
           text: 'Удалить Навсегда', onPress:() => setTodos(prev => prev.filter(todo => todo.id !== id)),
         }
       ]
-
     );
-      
   }
-  const [on,serOn] = useState(false);
+  // Рандомизация
+  let a = Math.floor(Math.random() * 5);
+  let arr = ['#c1bdc9', '#ff9eb8', '#ff9eec', '#fde0ff','#ffa1f6','#d4d6ff'];
+  const [str ,setStr] = useState('white');
+      const random = () => {
+        setStr(() => arr[a]);
+        setDis(true);
+      }
+  const [dis,setDis] = useState(false);
 
+  const styleRandom = StyleSheet.create({
+    bgC:{
+      flex: 1,
+      backgroundColor:  str ,
+    }
+  })
   return(
-    <View style={ on ? styles.alter : styles.container}>
+    <View style={styleRandom.bgC}>
       <Navbar title='Application'/>
       <Button 
       style={styles.countFalse}
-      onPress={() => serOn(!on) }
-      title='Изменить тему'
+      onPress={random}
+      title='Изменить тему 1 раз'
+      disabled={dis}
       />
       <Button 
-      onPress={GlobalCount}
+      onPress={ GlobalCount}
       title='Начать подсчёты заново'
       />
       <View style={styles.paddingScrol}>
@@ -64,19 +73,7 @@ export default App = () => {
   );
 } 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    backgroundColor: '#d4d6ff',
-    color: '#fff'
-  },
-  alter:{
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   paddingScrol:{
     paddingHorizontal: 20,
   },
-  countTrue:{
-    color: 'red',
-  },
-})
+}) 

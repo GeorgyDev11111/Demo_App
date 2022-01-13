@@ -3,7 +3,10 @@ import {View,StyleSheet,TextInput,Button,Alert} from 'react-native';
 
 let count = 0;
 
-export const GlobalCount = () => count = 0;
+export const GlobalCount = () => {
+    count = 0;
+    Alert.alert('Успешно!')
+};
 
 export const AddToDo = (props) => {
 
