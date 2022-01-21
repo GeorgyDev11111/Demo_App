@@ -1,13 +1,6 @@
 import React,{useState} from 'react';
 import {View,StyleSheet,TextInput,Button,Alert} from 'react-native';
 
-let count = 0;
-
-export const GlobalCount = () => {
-    count = 0;
-    Alert.alert('Успешно!')
-};
-
 export const AddToDo = (props) => {
 
     const [value, setValue] = useState('');
@@ -15,8 +8,7 @@ export const AddToDo = (props) => {
     const pressHendler = () => {
         
         if(value.trim()){
-            count++;
-            props.onSubmit(count +") "+ value);
+            props.onSubmit("★ " + value  );
             setValue('');
         }else{
             Alert.alert('Значение поля не может быть пустым')

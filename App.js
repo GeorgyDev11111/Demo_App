@@ -1,5 +1,4 @@
 import React from 'react'
-import {} from 'react-native';
 import  Display_1  from './components/Display_1';
 import { Link } from './components/Link';
 
@@ -9,19 +8,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
+
 export default App = () => {
 
     return(
         <NavigationContainer>
             <Stack.Navigator>
-            <Stack.Screen  
+            <Stack.Screen
                     name='Home'
                     component={Display_1}
-                    options={{title: 'Welcome'}}
+                    options={{headerStyle:{backgroundColor:'rgb(34,34,34)'}, statusBarHidden:true,title:''}}
                     />
             <Stack.Screen 
                     name='Home2'
                     component={Link}
+                    // options={{statusBarHidden:true}}
                     />
             </Stack.Navigator>
         </NavigationContainer>

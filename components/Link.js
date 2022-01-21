@@ -1,18 +1,37 @@
 import React, {useState} from 'react';
-import {StyleSheet,View,FlatList,Button,Alert} from 'react-native';
+import {StyleSheet,View,FlatList,Alert,TouchableOpacity,Text} from 'react-native';
 import { AddToDo } from '../src/AddToDo';
 import { Todo } from '../src/Todo';
-import { GlobalCount } from '../src/AddToDo';
 
-export const Link = (props) => {
+
+
+export const Link = () => {
   const [todos,setTodos] = useState([]);
   // функция которая принимает параметр у TextImput добавляет к ней id и возвращат новый элемент ToDo
   const addTodo = title => {
+    const  date = new Date();
+    function monthD(){
+      return date.getMonth() > 9 ? date.getMonth() + 1 : "0"+ (date.getMonth() + 1)
+    }
+    function dateD(){
+     return date.getDate() > 9 ? date.getDate() :"0"+ date.getDate();
+    }
+    function houesesD(){
+      return date.getHours() > 9 ? date.getHours() :"0"+ date.getHours();
+    }
+    function MinutesD(){
+      return date.getMinutes() > 9 ? date.getMinutes() :"0"+ date.getMinutes();
+    }
+    function SecondsD(){
+      return date.getSeconds() > 9 ? date.getSeconds() :"0"+ date.getSeconds();
+    }
     setTodos(prev => [
       ...prev,
       {
       id: Date.now().toString(),
-      title
+      title,
+      date: dateD() + "." + monthD() + "." +date.getFullYear() + " в " + houesesD() + ":" +
+      MinutesD() + ":" + SecondsD(),
       }
   ])
   }
@@ -32,38 +51,24 @@ export const Link = (props) => {
       ]
     );
   }
-  // Рандомизация
-  let a = Math.floor(Math.random() * 5);
-  let arr = ['#c1bdc9', '#ff9eb8', '#ff9eec', '#fde0ff','#ffa1f6','#d4d6ff'];
-  const [str ,setStr] = useState('white');
-      const random = () => {
-        setStr(() => arr[a]);
-        setDis(true);
-      }
-  const [dis,setDis] = useState(false);
-
-  const styleRandom = StyleSheet.create({
-    bgC:{
-      flex: 1,
-      backgroundColor:  str ,
-    },
-  })
+  const [light,setLight] = useState(false);
+  const tgg = () => {
+    if(light){
+      setLight(false);
+    }else{
+      setLight(true);
+    }
+  } 
   return(
-    <View style={styleRandom.bgC}>
-      {/* <Button 
-      title='Назад<<'
-      onPress={() => props.navigation.goBack() }
-      /> */}
+    
+    <View style={light ? styles.toggle1 : styles.toggle2}>
       <View style={styles.towButtons}>
-      <Button 
-      onPress={random}
-      title='Изменить тему 1 раз'
-      disabled={dis}
-      />
-      <Button 
-      onPress={ GlobalCount}
-      title='Начать подсчёты заново'
-      />
+      <TouchableOpacity
+        style={styles.buttons}
+        onPress={()=> tgg()}
+      >
+        <Text style={{fontSize:20}}>Изменить тему</Text>
+      </TouchableOpacity>
       </View>
       <View style={styles.paddingScrol}>
       <AddToDo   onSubmit={addTodo}/>
@@ -80,10 +85,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   towButtons:{
-    marginTop: 10,
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly'
+  },
+  toggle1:{
+    flex: 1,
+    backgroundColor:'rgb(97,218,251)',
+    color: 'white',
+    paddingBottom: 100,
+  },
+  toggle2:{
+    flex: 1,
+    backgroundColor: 'white',
+    paddingBottom: 100,
+  },
+  buttons: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
+    backgroundColor: '#bfbfbf'
   },
 
 }) 

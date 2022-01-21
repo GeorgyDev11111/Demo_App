@@ -1,23 +1,23 @@
 import React from 'react';
-import {View,Text,StyleSheet,TouchableOpacity} from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity, Alert} from 'react-native';
 
 export const Todo = (props) => {
 
     return(
         <TouchableOpacity
         activeOpacity={0.1}
-         onPress={() => console.warn('ToDo')}
          onLongPress={() => props.onRemove(props.todo.id)}
+         onPress={() => Alert.alert( `Запись была сделанна:  ${props.todo.date}`)}
         >
-        <View style={styles.todo}>
-            <Text>{props.todo.title}</Text>
+        <View style={styles.todoc}>
+            <Text>{props.todo.title }</Text>
         </View>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-    todo:{
+    todoc:{
      flexDirection: 'row',
      alignItems: 'center',
      padding: 15,
